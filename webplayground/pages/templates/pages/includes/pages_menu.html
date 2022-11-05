@@ -1,0 +1,41 @@
+<!-- 
+    Esta pagina se usa para incluirla en todos los templates que tienen que ver con PAGES
+    Este codigo lo dio el profe desde este link
+    https://gist.github.com/hcosta/143950b40dda8cf640076a629cec7f09
+    Solo se muestra si hay un usuario logeado de STAFF
+-->
+
+<!-- 
+  Esta primera sección es para permitir que las areas de texto del ckeditor
+  se le pueda dar estilos CSS de forma normal y mostrara el Widget de CKEDITOR.
+  Ver este link: https://github.com/django-ckeditor/django-ckeditor#outside-of-django-admin
+-->
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<!-- 
+  Inyectar para adapter el Widget de CKEDITOR
+  https://gist.github.com/hcosta/15ae0835e5824685d46e75f49efc1bcb
+-->
+<link href="{% static 'pages/css/custom_ckeditor.css' %}" rel="stylesheet">
+
+{% if request.user.is_staff %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <span class="navbar-brand" href="#"><i>Administrar</i></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nep" aria-controls="nep" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nep">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:create' %}"><i>Crear página</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pages:pages' %}"><i>Listar páginas</i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endif %}
